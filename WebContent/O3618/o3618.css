@@ -1,12 +1,14 @@
-body{
-	background-color : #ffffff;
+html, body {
+	background-color: #ffffff;
+	margin : 0;
 }
+
 #sc_content {
-	width:100%;
+	width: 100%;
 }
 
 #sc_title {
-	font-size: 20px;
+	font-size: 30px;
 	font-weight: bold;
 	text-align: center;
 	margin: 30px;
@@ -14,7 +16,7 @@ body{
 
 #point_title {
 	color: #ff8400; /*Orange*/
-	font-size: 25px;
+	font-size: 35px;
 }
 
 #sc_suggest_walk_course {
@@ -24,11 +26,50 @@ body{
 
 #p_walk_sub_title {
 	color: #414b8b; /*Navy*/
-	font-size: 18px;
+	font-size: 25px;
 	font-weight: bold;
 }
 
 #map {
 	width: 100%;
 	height: 700px;
+}
+
+#sc_animal_hospital {
+	text-align: center;
+	margin: 50px 0px;
+}
+
+.animal_hospital_row {
+	text-align: center;
+}
+
+.animal_hospital_item {
+	width: 18%;
+	display: inline-block;
+	text-align: center;
+	margin: 1.5%;
+	padding: 20px 0px;
+	background-color: white;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.img_hospital_page {
+	width: 50px;
+	height: 50px;
+}
+
+#sc_animal_content {
+	width: 85%;
+	display: inline-block;
+}
+
+#sc_animal_prev, #sc_animal_next {
+	width: 5%;
+	display: inline-block;
+}
+
+#loading {
+	font-size: 50px;
+	font-weight: bold;
 }
