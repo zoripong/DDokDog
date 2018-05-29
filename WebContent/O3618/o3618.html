@@ -41,6 +41,11 @@
 			width:5%;
 			display:inline-block;
 		}
+		
+		#loading{
+			font-size : 50px;
+			font-weight : bold;
+		}
 	</style>
 </head>
 <body>
@@ -53,77 +58,7 @@
 		<div id="sc_animal_content">
 		
 		
-		
-				<div class="animal_hospital_row">
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-		</div>
-		
-		<div class="animal_hospital_row">
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-			<div class="animal_hospital_item">
-				<h1>대학로동물병원</h1>
-			
-				<div class="animal_hospital_item_content">
-					<h4>3672-8441</h4>
-					<h4>53.7</h4>
-				</div>
-			</div>
-		</div>
-		
-		
-		
+			<p id="loading"> Loading ..</p>
 		
 		
 		</div>
@@ -196,7 +131,7 @@
 						//건물 면적 : hospital_list[i].SITE_AREA
                 	}
                 }
-                alert(count);
+                
   			              
                 nextPageList();
             },
@@ -266,8 +201,7 @@
 		var head = document.getElementsByTagName("head")[0];
 		if(oldScriptElement ==null){
 			head.appendChild(newScriptElement);
-		}
-		else {
+		}else {
 			head.replaceChild(newScriptElement, oldScriptElement);
 		}
 		
