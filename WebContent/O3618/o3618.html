@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="o3618.js"></script>
+	<link rel="stylesheet" href="o3618.css" type="text/css">
+    <meta charset="utf-8">
+    <title>반려인을 위한</title>
+	<style>
+	
+	</style>
+</head>
+<body>
+<section id="sc_content">
+	<section id="sc_title"><span id="point_title">반려견</span>을 키우는 당신을 위한 정보들</section>
+	<section id="sc_suggest_walk_course">
+		<p id="p_walk_sub_title">주인님! 저랑 산책가실래요? U ´ᴥ` U</p>
+		<div id="map"></div>
+	</section>
+</section>
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7795f74fa7c5e69cf79685b3479bcd2"></script>
+<script>
+	window.onload=init;
+
+	function init() {
+		handleRefresh();
+	}
+
+	// [about map]
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };
+	
+	var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	// [end of map]
+	
+	// [about animal hospital api]
+	function updateURL() {
+		url="http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/xml/SeoulAnimalHospital/1/5/";
+		$.getJSON(url, SearchConcert);
+	}
+	// [end of animal hospital api]
+	function handleRefresh() {
+		updateURL();	//주소 업데이트
+		var newScriptElement = document.createElement("script");
+		newScriptElement.setAttribute("src",url);
+		newScriptElement.setAttribute("id","jsonp");
+		var oldScriptElement = document.getElementById("jsonp");
+		var head = document.getElementsByTagName("head")[0];
+		if(oldScriptElement ==null){
+			head.appendChild(newScriptElement);
+		}
+		else {
+			head.replaceChild(newScriptElement, oldScriptElement);
+		}
+	}
+
+</script>
+</body>
+</html>

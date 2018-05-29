@@ -1,0 +1,32 @@
+#sc_content {
+	width: 80%;
+	margin-left: 10%;
+}
+
+#sc_title {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	margin: 30px;
+}
+
+#point_title {
+	color: #ff8400; /*Orange*/
+	font-size: 25px;
+}
+
+#sc_suggest_walk_course {
+	width: 100%;
+	height: 100%;
+}
+
+#p_walk_sub_title {
+	color: #414b8b; /*Navy*/
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#map {
+	width: 100%;
+	height: 700px;
+}
