@@ -24,10 +24,11 @@ html, body {
 	height: 100%;
 }
 
-#p_walk_sub_title {
+.p_sub_title {
 	color: #414b8b; /*Navy*/
 	font-size: 25px;
 	font-weight: bold;
+	margin:30px;
 }
 
 #map {
@@ -36,7 +37,7 @@ html, body {
 }
 
 #sc_animal_hospital {
-	text-align: center;
+
 	margin: 50px 0px;
 }
 
@@ -59,17 +60,53 @@ html, body {
 	height: 50px;
 }
 
-#sc_animal_content {
+#sc_hospital_content{
+	text-align:center;
+}
+#sc_hospital_list {
 	width: 85%;
+	text-align:center;
 	display: inline-block;
 }
 
-#sc_animal_prev, #sc_animal_next {
+#sc_hospital_prev, #sc_hospital_next {
 	width: 5%;
 	display: inline-block;
+	text-align:center;
 }
 
-#loading {
+.loading {
+	color : #acacac;
 	font-size: 50px;
 	font-weight: bold;
+	width:100%;
+	text-align:center;
+}
+
+.p_description{
+	color : #333333;
+	margin:30px;
+	font-size : 20px;
+	
+}
+#table_abandon{
+	width:100%;
+	height:auto;
+}
+#table_abandon tr{
+	background-color : pink;
+}
+#table_abandon tr:nth-child(2n){
+	background-color : red;
+}
+
+#sc_video_abandon{
+	width:100%;
+	height: 700px;
+}
+#sc_video_abandon>iframe{
+	width:100%;
+	height: 700px;
+	display:block;
+	
 }

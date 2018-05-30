@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="o3618.js"></script>
-	<link rel="stylesheet" href="o3618.css" type="text/css">
+
     <meta charset="utf-8">
     <title>반려인을 위한</title>
     <!-- include js and css link -->
@@ -12,6 +11,11 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script	src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 	<!-- end of including -->
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7795f74fa7c5e69cf79685b3479bcd2"></script>
+	<script type="text/javascript" src="o3618.js"></script>
+	<link rel="stylesheet" href="o3618.css" type="text/css">
+	
 	<style>
 		
 	</style>
@@ -19,33 +23,161 @@
 <body>
 <section id="sc_content">
 	<section id="sc_title"><span id="point_title">반려견</span>을 키우는 당신을 위한 정보들</section>
-	<section id="sc_animal_hospital">
-		<div id="sc_animal_prev" onclick="prevPageList()">
-			<img class="img_hospital_page"src="image/left-arrow.svg" />
-		</div>
-		<div id="sc_animal_content">
-		
-		
-			<p id="loading"> Loading ..</p>
-		
-		
-		</div>
-		<div id="sc_animal_next" onclick="nextPageList()">
-			<img class="img_hospital_page" src="image/right-arrow.svg" />
-		</div>
-
-		
+	
+	<!-- TODO -->
+	<section id="sc_selling_pet">
+		<p class="p_sub_title">주인님을 기다리고 있어요! U ´ᴥ` U</p>
+		<select id="district" style="z-index:4;font-family:dotum; font-size:0.7em; vertical-align:middle; margin-top:5px;">
+			<option value="강남구">강남구</option>
+			<option value="강동구">강동구</option>
+			<option value="강북구">강북구</option>
+			<option value="강서구">강서구</option>
+			<option value="관악구">관악구</option>
+			<option value="광진구">광진구</option>
+			<option value="구로구">구로구</option>
+			<option value="금천구">금천구</option>
+			<option value="노원구">노원구</option>
+			<option value="도봉구">도봉구</option>
+			<option value="동대문구">동대문구</option>
+			<option value="동작구">동작구</option>
+			<option value="마포구">마포구</option>
+			<option value="서대문구">서대문구</option>
+			<option value="서초구">서초구</option>
+			<option value="성동구">성동구</option>
+			<option value="성북구">성북구</option>
+			<option value="송파구">송파구</option>
+			<option value="양천구">양천구</option>
+			<option value="영등포구">영등포구</option>
+			<option value="용산구">용산구</option>
+			<option value="은평구">은평구</option>
+			<option value="종로구">종로구</option>
+			<option value="중구">중구</option>
+			<option value="중랑구">중랑구</option>
+ 		</select>
+ 		<section id="sc_selling_content">
+			<p class="loading"> Loading ..</p>
+ 		</section>
 	</section>
+	<!-- -->
+	
+	<section id="sc_animal_hospital">
+		<p class="p_sub_title">주인님.. 아파요.. U ´ᴥ` U</p>
+		<section id="sc_hospital_content">
+			<div id="sc_hospital_prev" onclick="prevPageList()">
+				<img class="img_hospital_page"src="image/left-arrow.svg" />
+			</div>
+			<div id="sc_hospital_list">
+			
+				<p class="loading"> Loading ..</p>
+			
+			</div>
+			<div id="sc_hospital_next" onclick="nextPageList()">
+				<img class="img_hospital_page" src="image/right-arrow.svg" />
+			</div>
+		</section>
+	</section>
+	
+	<!-- TODO -->
 	<section id="sc_suggest_walk_course">
-		<p id="p_walk_sub_title">주인님! 저랑 산책가실래요? U ´ᴥ` U</p>
+		<p class="p_sub_title">주인님! 저랑 산책가실래요? U ´ᴥ` U</p>
 		<div id="map"></div>
-		
-		<div id="concertDiv"></div>
+	</section>
+	<!-- -->
+	
+
+	<section id="sc_abandon_pet">
+		<p class="p_sub_title">반려동물은 쓰다 버리는 물건이 아닙니다. U ´ᴥ` U</p>
+		<p class="p_description">구별 유기동물 정보를 조회해보세요.</p>
+		<form>
+			<select id="abandon_district" style="z-index:4;font-family:dotum; font-size:0.7em; vertical-align:middle; margin-top:5px;">
+				<option value="합계" selected>합계</option>
+				<option value="강남구">강남구</option>
+				<option value="강동구">강동구</option>
+				<option value="강북구">강북구</option>
+				<option value="강서구">강서구</option>
+				<option value="관악구">관악구</option>
+				<option value="광진구">광진구</option>
+				<option value="구로구">구로구</option>
+				<option value="금천구">금천구</option>
+				<option value="노원구">노원구</option>
+				<option value="도봉구">도봉구</option>
+				<option value="동대문구">동대문구</option>
+				<option value="동작구">동작구</option>
+				<option value="마포구">마포구</option>
+				<option value="서대문구">서대문구</option>
+				<option value="서초구">서초구</option>
+				<option value="성동구">성동구</option>
+				<option value="성북구">성북구</option>
+				<option value="송파구">송파구</option>
+				<option value="양천구">양천구</option>
+				<option value="영등포구">영등포구</option>
+				<option value="용산구">용산구</option>
+				<option value="은평구">은평구</option>
+				<option value="종로구">종로구</option>
+				<option value="중구">중구</option>
+				<option value="중랑구">중랑구</option>
+	 		</select>
+ 		</form>
+ 		<section id="sc_abandon_content">
+ 			<table id="table_abandon">
+ 				<tr>
+ 					<td id="td_district" colspan="2">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 				<tr>
+ 					<td id="td_adoption">
+ 						입양/분양
+ 					</td>
+ 					<td id="td_adoption_value">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 				<tr>
+ 					<td id="td_death">
+ 						폐사/안락사
+ 					</td>
+ 					<td id="td_death_value">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 				<tr>
+ 					<td id="td_indojuin">
+	 					INDOJUIN
+ 					</td>
+ 					<td id="td_indojuin_value">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 				<tr>
+ 					<td id="td_gyeryugijeung">
+	 					GYERYUGIJEUNG
+ 					</td>
+ 					<td id="td_gyeryugijeung_value">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 				<tr>
+ 					<td id="td_total">
+ 						합계
+ 					</td>
+ 					<td id="td_total_value">
+ 						loading..
+ 					</td>
+ 				</tr>
+ 			
+ 			</table>
+			
+ 		</section>
+	</section>
+
+	
+	<section id="sc_video_abandon">
+		<iframe src="https://www.youtube.com/embed/s7CpS7BPHSY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</section>
 </section>
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7795f74fa7c5e69cf79685b3479bcd2"></script>
 <script>
 	
 	
