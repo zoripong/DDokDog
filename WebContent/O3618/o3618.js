@@ -5,6 +5,7 @@ var g_hospital_start_index = 0;
 var is_abandon_load = false;
 var g_abandon_list = [];
 
+var is_selling_load = false;
 var g_selling_pet_list = [];
 var g_selling_start_index = 0;
 
@@ -169,7 +170,6 @@ function updateAbandonPetApi(){
 	});
 }
 
-
 function setAbandonView(district){
 	$( "#td_district" ).text(district);
 	
@@ -188,7 +188,6 @@ function setAbandonView(district){
 	
 	$( "#td_total_value" ).text(  g_abandon_list[district].HAPGYE );
 }
-	
 // [end of Abandon Pet]
 
 // [about selling Pet]
@@ -207,10 +206,11 @@ function updateSellingPetApi(){
 			
 			var count = 0;
 			for(var i = 0; i<selling_pet_list.length; i++){
-				if(selling_pet_list[i].trdStateNm == "운영중"){
+				if(selling_pet_list[i].trdStateNm != "폐업 등"){
 					g_selling_pet_list[count++] = selling_pet_list[i];
 				}
 			}
+			setSellingView($( "#selling_district" ).val());
 			
 		},
 		error : function(xhr, status, error) {
@@ -218,6 +218,36 @@ function updateSellingPetApi(){
 //			alert('Error - ' + errorMessage);
 		}
 	});
+}
+
+function setSellingView(district){
+	//TODO:
+	
+	$("#sc_selling_list").empty();
+	
+	for(var i = 0; i<g_selling_pet_list.length; i++){
+		
+		if(g_selling_pet_list[i].siteWhlAddr.includes(district) || g_selling_pet_list[i].rdnWhlAddr.includes(district)){
+			
+			$("#sc_selling_list").append("<section class='sc_selling_row'>");
+			$("#sc_selling_list").append("<div class='store_name'>"+g_selling_pet_list[i].bplcNm+"</div>");
+			$("#sc_selling_list").append("<div class='store_address'>"+g_selling_pet_list[i].siteWhlAddr+"</div>");
+			$("#sc_selling_list").append("<div class='store_address'>"+g_selling_pet_list[i].rdnWhlAddr+"</div>");
+			$("#sc_selling_list").append("</section>");
+		}
+	}
+	
+	
+//	$("#sc_selling_list").append("<div class='animal_hospital_row'>");
+
+	/*
+	 		<section class="sc_selling_row">
+				<div class="store_name">하하호호 동물병원</div>
+				<div class="store_address">서울특별시 중구 봉래동2가 122번지</div>
+				<div class="store_address">서울특별시 중구 봉래동2가 122번지</div>
+			</section>
+	 */
+//	sc_selling_list
 }
 // [end of selling Pet]
 
@@ -240,6 +270,7 @@ function updateWalkingRouteApi(){
 				g_walking_route_list[i] = walk_route_list[i];
 			}
 //			alert(g_walking_route_list[0].OBJECTID);
+			is_selling_load = true;
 		},
 		error : function(xhr, status, error) {
 			var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -254,6 +285,12 @@ function initHandler(){
 		//alert($( "#abandon_district" ).val());
 		  if(is_abandon_load)
 			  setAbandonView($( "#abandon_district" ).val());
+	});
+	
+	$( "#selling_district" ).change(function() {
+		//alert($( "#abandon_district" ).val());
+		  if(is_selling_load)
+			  setSellingView($( "#selling_district" ).val());
 	});
 }
 
