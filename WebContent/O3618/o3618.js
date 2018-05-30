@@ -9,11 +9,6 @@ var is_selling_load = false;
 var g_selling_pet_list = [];
 var g_selling_start_index = 0;
 
-var is_river_load = false;
-var g_river_list = [];
-var g_river_start_index = 0;
-var g_river_name_list = [];
-
 var g_walking_route_list = [];
 var g_walking_start_index = 0;
 /* [end of global variable] */
@@ -23,24 +18,41 @@ window.onload = init;
 function init() {
 	//		handleRefresh();
 	initHandler();
-	loadMap();
+	loadMap(33.450701, 126.570667);
 	updateHospitalApi(1, 100);
 	updateAbandonPetApi();
 	updateSellingPetApi();
-	updateRiverApi();
+	updateWalkingRouteApi();
 }
 
 // [about map]
-function loadMap(){
+function loadMap(lat, lng){
+	alert("?");
+	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 	
+	
+
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-		center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level : 3
-	// 지도의 확대 레벨
-	};
-	
+    mapOption = { 
+        center: new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
 	var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new daum.maps.LatLng(lat, lng); 
+
+	// 마커를 생성합니다
+	var marker = new daum.maps.Marker({
+		position: markerPosition
+	});
+
+    var moveLatLon = new daum.maps.LatLng(lat, lng);
+	   map.setCenter(moveLatLon);
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
 }
 
 // [end of map]
@@ -226,8 +238,7 @@ function updateSellingPetApi(){
 }
 
 function setSellingView(district){
-	//TODO:
-	
+
 	$("#sc_selling_list").empty();
 	
 	for(var i = 0; i<g_selling_pet_list.length; i++){
@@ -242,19 +253,10 @@ function setSellingView(district){
 		}
 	}
 	
-	
-//	$("#sc_selling_list").append("<div class='animal_hospital_row'>");
-
-	/*
-	 		<section class="sc_selling_row">
-				<div class="store_name">하하호호 동물병원</div>
-				<div class="store_address">서울특별시 중구 봉래동2가 122번지</div>
-				<div class="store_address">서울특별시 중구 봉래동2가 122번지</div>
-			</section>
-	 */
-//	sc_selling_list
 }
 // [end of selling Pet]
+
+// [about walking route]
 
 // [about walking route]
 function updateWalkingRouteApi(){
@@ -276,6 +278,7 @@ function updateWalkingRouteApi(){
 			}
 //			alert(g_walking_route_list[0].OBJECTID);
 			is_selling_load = true;
+			setMapMarker();
 		},
 		error : function(xhr, status, error) {
 			var errorMessage = xhr.status + ': ' + xhr.statusText
@@ -283,43 +286,26 @@ function updateWalkingRouteApi(){
 		}
 	});
 }
+
+function setMapMarker(){
+	//alert(g_walking_route_list.length);
+	var index = parseInt($("#walk_course_number").text())-1;
+//	alert(g_walking_route_list[index].LNG+"/"+g_walking_route_list[index].LAT);
+	loadMap(g_walking_route_list[index].LAT, g_walking_route_list[index].LNG)
+}
+
+function prevCourse(){
+	$("#walk_course_number").text(parseInt($("#walk_course_number").text())-1);
+	setMapMarker();
+}
+
+function nextCourse(){
+	$("#walk_course_number").text(parseInt($("#walk_course_number").text())+1);
+	setMapMarker();
+}
+
 // [end of walking route]
-function updateRiverApi(){
-//	alert("updateWalkingRouteApi");
-	var url = "http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/json/GeoInfoRiverGuardWGS/1/50";
 
-	$.ajax({
-		type : "GET",
-		async : true,
-		url : url,
-		dataType : "json",
-		success : function(response, status, result) {
-			var response = JSON.parse(JSON.stringify(response));
-			var GeoInfoRiverGuardWGS = JSON.parse(JSON.stringify(response.GeoInfoRiverGuardWGS));
-			var river_list = JSON.parse(JSON.stringify(GeoInfoRiverGuardWGS.row));
-			
-			for(var i = 0; i<river_list.length; i++){
-				g_river_list[i] = river_list[i].UNI_CD;
-				g_river_name_list[i] = river_list[i].RV_NM;
-			}
-			
-			for(var i = 0; i<g_river_name_list.length; i++){
-				$("#river_list").append("<option value='"+g_river_list[i]+"'>"+g_river_name_list[i]+"</option>");	
-			}
-			
-			is_river_load = true;
-			updateWalkingRouteApi();
-		},
-		error : function(xhr, status, error) {
-			var errorMessage = xhr.status + ': ' + xhr.statusText
-//			alert('Error - ' + errorMessage);
-		}
-	});
-}
-// [about river]
-
-
-// [end of river api]
 function initHandler(){
 	$( "#abandon_district" ).change(function() {
 		//alert($( "#abandon_district" ).val());
@@ -331,6 +317,11 @@ function initHandler(){
 		//alert($( "#abandon_district" ).val());
 		  if(is_selling_load)
 			  setSellingView($( "#selling_district" ).val());
+	});
+	$("#river_list").change(function() {
+		//alert($( "#abandon_district" ).val());
+		  if(is_river_load)
+			  setMapMarker($( "#river_list" ).val());
 	});
 }
 

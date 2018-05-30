@@ -88,7 +88,7 @@ html, body {
 	display: inline-block;
 }
 
-#sc_hospital_prev, #sc_hospital_next {
+#sc_hospital_prev, #sc_hospital_next, #sc_coures_prev, #sc_coures_next {
 	width: 5%;
 	display: inline-block;
 	text-align:center;

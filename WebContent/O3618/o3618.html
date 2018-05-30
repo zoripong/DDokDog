@@ -91,7 +91,11 @@
 	<!-- TODO -->
 	<section id="sc_suggest_walk_course">
 		<p class="p_sub_title">주인님! 저랑 산책가실래요? U ´ᴥ` U</p>
-		<select id="river_list" style="z-index:4;font-family:dotum; font-size:0.7em; vertical-align:middle; margin-top:5px;"><option id="" selected>하천을 선택하세요.</option></select>
+		<form>
+			<img id="sc_coures_prev" src="image/left-arrow.svg" onclick="prevCourse()"/>
+			<div id="walk_course_number">1</div>
+			<img id="sc_coures_next" src="image/right-arrow.svg"  onclick="nextCourse()"/>
+		</form>
 		<div id="map"></div>
 	</section>
 	<!-- -->
