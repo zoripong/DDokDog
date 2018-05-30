@@ -9,6 +9,11 @@ var is_selling_load = false;
 var g_selling_pet_list = [];
 var g_selling_start_index = 0;
 
+var is_river_load = false;
+var g_river_list = [];
+var g_river_start_index = 0;
+var g_river_name_list = [];
+
 var g_walking_route_list = [];
 var g_walking_start_index = 0;
 /* [end of global variable] */
@@ -22,7 +27,7 @@ function init() {
 	updateHospitalApi(1, 100);
 	updateAbandonPetApi();
 	updateSellingPetApi();
-	updateWalkingRouteApi();
+	updateRiverApi();
 }
 
 // [about map]
@@ -279,7 +284,42 @@ function updateWalkingRouteApi(){
 	});
 }
 // [end of walking route]
+function updateRiverApi(){
+//	alert("updateWalkingRouteApi");
+	var url = "http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/json/GeoInfoRiverGuardWGS/1/50";
 
+	$.ajax({
+		type : "GET",
+		async : true,
+		url : url,
+		dataType : "json",
+		success : function(response, status, result) {
+			var response = JSON.parse(JSON.stringify(response));
+			var GeoInfoRiverGuardWGS = JSON.parse(JSON.stringify(response.GeoInfoRiverGuardWGS));
+			var river_list = JSON.parse(JSON.stringify(GeoInfoRiverGuardWGS.row));
+			
+			for(var i = 0; i<river_list.length; i++){
+				g_river_list[i] = river_list[i].UNI_CD;
+				g_river_name_list[i] = river_list[i].RV_NM;
+			}
+			
+			for(var i = 0; i<g_river_name_list.length; i++){
+				$("#river_list").append("<option value='"+g_river_list[i]+"'>"+g_river_name_list[i]+"</option>");	
+			}
+			
+			is_river_load = true;
+			updateWalkingRouteApi();
+		},
+		error : function(xhr, status, error) {
+			var errorMessage = xhr.status + ': ' + xhr.statusText
+//			alert('Error - ' + errorMessage);
+		}
+	});
+}
+// [about river]
+
+
+// [end of river api]
 function initHandler(){
 	$( "#abandon_district" ).change(function() {
 		//alert($( "#abandon_district" ).val());
