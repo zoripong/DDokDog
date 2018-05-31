@@ -1,0 +1,165 @@
+html, body {
+	background-color: #ffffff;
+	margin : 0;
+}
+
+#sc_content {
+	width: 100%;
+}
+
+#sc_title {
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: center;
+	margin: 30px;
+}
+
+#point_title {
+	color: #ff8400; /*Orange*/
+	font-size: 2em;
+}
+
+#sc_suggest_walk_course {
+	width: 100%;
+	height: 100%;
+}
+
+.p_sub_title {
+	color: #414b8b; /*Navy*/
+	font-size: 2em;
+	font-weight: bold;
+	margin:30px;
+}
+
+#map {
+	width: 100%;
+	height: 700px;
+}
+
+#sc_selling_pet, #sc_animal_hospital, #sc_abandon_pet{
+	background-color : #ffffff;
+	margin:50px;
+	padding:50px;
+}
+.sc_selling_row{
+	width:100%;
+	display:inline-block;
+}
+
+.store_address_title, .store_name_title{
+	text-align : center;
+	font-weight:bold;
+}
+
+.store_name{
+	text-align : center;
+}
+.store_name, .store_name_title, .store_address, .store_address_title{
+	display:inline-block;
+	vertical-align:middle;
+	width:30%;
+	font-size : 2em;
+}
+
+#sc_animal_hospital {
+
+	margin: 50px 0px;
+}
+
+.animal_hospital_row {
+	text-align: center;
+}
+
+.animal_hospital_item {
+	width: 18%;
+	display: inline-block;
+	text-align: center;
+	margin: 1.5%;
+	padding: 20px 0px;
+	background-color: white;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+	font-size : 2em;
+}
+
+.img_hospital_page {
+	width: 50px;
+	height: 50px;
+}
+
+#sc_hospital_content{
+	text-align:center;
+}
+#sc_hospital_list {
+	width: 85%;
+	text-align:center;
+	display: inline-block;
+}
+
+#sc_hospital_prev, #sc_hospital_next, #sc_coures_prev, #sc_coures_next {
+	width: 5%;
+	display: inline-block;
+	text-align:center;
+}
+
+#walk_course_title{
+	width: 80%;
+	display: inline-block;
+	text-align : center;
+	margin:30px 0px;
+}
+#walk_course_number{
+	display: inline-block;
+	text-align:center;
+	font-size : 2em;
+	font-weight:bold;
+}
+#walk_course_name{
+	color : #333333;
+	font-size : 2em;
+}
+#sc_suggest_walk_course>form{
+	text-align:center;
+}
+
+.loading {
+	color : #acacac;
+	font-size: 2em;
+	font-weight: bold;
+	width:100%;
+	text-align:center;
+}
+
+.p_description{
+	color : #333333;
+	margin:30px;
+	font-size : 2em;
+	
+}
+#table_abandon{
+	width:100%;
+	height:auto;
+}
+#table_abandon td{
+width:50%;
+font-size:2em;
+		
+}
+#table_abandon tr{
+	text-align:center;
+	background-color : #eaeff7;
+}
+#table_abandon tr:nth-child(2n){
+	background-color : #d2deef;
+}
+
+#sc_video_abandon{
+	width:100%;
+	height: 700px;
+	margin-top:50px;
+}
+#sc_video_abandon>iframe{
+	width:100%;
+	height: 700px;
+	display:block;
+	
+}
