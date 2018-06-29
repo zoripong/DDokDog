@@ -12,7 +12,8 @@
 	<script	src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 	<!-- end of including -->
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7795f74fa7c5e69cf79685b3479bcd2"></script>
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b7795f74fa7c5e69cf79685b3479bcd2&libraries=services"></script>
 	<script type="text/javascript" src="m3618.js"></script>
 	<link rel="stylesheet" href="m3618.css" type="text/css">
 	
@@ -20,13 +21,16 @@
 		
 	</style>
 </head>
-<body>
+<body> 
+<embed src="bg/Bubble_Bath.mp3" hidden="true" loop="true">
 <section id="sc_content">
 	<section id="sc_title"><span id="point_title">반려견</span>을 키우는 당신을 위한 정보들</section>
 	
 
 	<section id="sc_selling_pet">
 		<p class="p_sub_title">주인님을 기다리고 있어요! U ´ᴥ` U</p>
+		<button id="search_button">검색하기</button>
+ 		<section  id="sc_selling_map"></section>
 		<select id="selling_district" style="z-index:4;font-family:dotum; font-size:2em; vertical-align:middle; margin-top:5px;">
 			<option value="강남구">강남구</option>
 			<option value="강동구">강동구</option>
@@ -54,7 +58,7 @@
 			<option value="중구">중구</option>
 			<option value="중랑구">중랑구</option>
  		</select>
- 		
+
  		<section id="sc_selling_content">
 			
 			<section class="sc_selling_row">
@@ -190,7 +194,7 @@
  		</section>
  		
  			<section id="sc_video_abandon">
-		<iframe src="https://www.youtube.com/embed/s7CpS7BPHSY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+ 			<iframe src="https://www.youtube.com/embed/bYGHCm3EX_M?rel=0&amp;showinfo=0&amp;start=143" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</section>
 	</section>
 

@@ -45,7 +45,11 @@ function loadMap(lat, lng){
 		position: markerPosition
 	});
 
-    var moveLatLon = new daum.maps.LatLng(lat, lng);
+	 daum.maps.event.addListener(marker, 'click', function(){
+		 window.open("https://www.google.com/maps/@"+lat+","+lng+",17z");
+	 });
+    
+	 var moveLatLon = new daum.maps.LatLng(lat, lng);
 	   map.setCenter(moveLatLon);
 	
 	// 마커가 지도 위에 표시되도록 설정합니다
@@ -73,8 +77,7 @@ function loadMap(lat, lng){
 
 // [about animal hospital api]
 function updateHospitalApi(start, end) {
-	var url = "http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/json/SeoulAnimalHospital/"
-			+ start + "/" + end + "/";
+	var url = "http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/json/animalPharmacyInfo/1/100";
 
 	$.ajax({
 		type : "GET",
@@ -82,22 +85,23 @@ function updateHospitalApi(start, end) {
 		url : url,
 		dataType : "json",
 		success : function(response, status, result) {
+		
 			var response = JSON.parse(JSON.stringify(response));
 			var SeoulAnimalHospital = JSON.parse(JSON
-					.stringify(response.SeoulAnimalHospital));
+					.stringify(response.animalPharmacyInfo));
 			var hospital_list = JSON.parse(JSON
 					.stringify(SeoulAnimalHospital.row));
 			var count = 0;
 			for (var i = 0; i < hospital_list.length; i++) {
 
-				if (hospital_list[i].TRD_STATE_GBN == "0000") {
+				if (hospital_list[i].STATE == "운영중" && hospital_list[i].NM != "" && hospital_list[i].ADDR_OLD != "" && hospital_list[i].TEL != "") {
 					g_hospital_list[count] = hospital_list[i];
 					count++;
 					//전화번호 : hospital_list[i].SITE_TEL
 					//건물 면적 : hospital_list[i].SITE_AREA
 				}
 			}
-
+			
 			nextPageList();
 		},
 		error : function(xhr, status, error) {
@@ -107,6 +111,8 @@ function updateHospitalApi(start, end) {
 	});
 
 }
+
+
 
 function nextPageList() {
 	//alert("next! :"+ g_hospital_start_index);
@@ -122,13 +128,13 @@ function nextPageList() {
 	while (true) {
 		// innerHTML
 		$("#sc_hospital_list").append(
-				"<div class='animal_hospital_item'><h1>"
-						+ g_hospital_list[g_hospital_start_index].WRKP_NM
+				"<div class='animal_hospital_item' onclick='hospitalDetail(\""+ g_hospital_list[g_hospital_start_index].NM+"\", \""+g_hospital_list[g_hospital_start_index].ADDR_OLD+"\", \""+ g_hospital_list[g_hospital_start_index].TEL+"\");'><h1>"
+						+ g_hospital_list[g_hospital_start_index].NM
 						+ "</h1>"
 						+ "<div class='animal_hospital_item_content'>" + "<h4>"
-						+ g_hospital_list[g_hospital_start_index].SITE_TEL
+						+ g_hospital_list[g_hospital_start_index].ADDR_OLD
 						+ "</h4><h4>"
-						+ g_hospital_list[g_hospital_start_index].SITE_AREA
+						+ g_hospital_list[g_hospital_start_index].TEL
 						+ "</h4>" + "</div></div>");
 		g_hospital_start_index++;
 
@@ -151,6 +157,21 @@ function nextPageList() {
 
 }
 
+function hospitalDetail(name, address, tel){
+	var geocoder = new daum.maps.services.Geocoder();
+	geocoder.addressSearch(address, function(result, status) {
+		
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+//	    	 alert(result[0].y+"/"+result[0].x);
+	    	 
+//    		 window.open("https://www.google.com/maps/@"+result[0].y+","+result[0].x+",17z");
+    		 window.open("https://www.google.com/maps/search/"+name+"/@"+result[0].y+","+result[0].x+",11z");
+	     } 
+	});    
+	
+
+}
 function prevPageList() {
 	//alert("hi! :"+ g_hospital_start_index);
 	if (g_hospital_start_index <= 8) {
@@ -222,6 +243,116 @@ function setAbandonView(district){
 // [end of Abandon Pet]
 
 // [about selling Pet]
+
+var dictLatLng = {
+		'강남구 ' : { 
+			'lat' : 37.4968488,
+			'lng' : 127.0679394
+		},
+
+		'강동구' : { 
+			'lat' : 37.5492994,
+			'lng' : 127.1464275
+		},
+		'강북구': { 
+			'lat' : 37.6482131,
+			'lng' : 127.0164069
+		},
+		'강서구': { 
+			'lat' : 37.552593,
+			'lng' : 126.85051
+		},
+		'관악구': { 
+			'lat' : 37.4654529,
+			'lng' : 126.9442478
+		},
+		'광진구': { 
+			'lat' : 37.5388,
+			'lng' : 127.083445
+		},
+		'구로구': { 
+			'lat' : 37.495765,
+			'lng' : 126.8578697
+		},
+		'금천구': { 
+			'lat' : 37.4599896,
+			'lng' : 126.9012665
+		},
+		'노원구': { 
+			'lat' : 37.6541956,
+			'lng' : 127.0769692
+		},
+		'도봉구': { 
+			'lat' : 37.6662325,
+			'lng' : 127.0298724
+		},
+		'동대문구': { 
+			'lat' : 37.5835755,
+			'lng' : 127.0505528
+		},
+		'동작구': { 
+			'lat' : 37.4971121,
+			'lng' : 126.944378
+		},
+		'마포구': { 
+			'lat' : 37.5615964,
+			'lng' : 126.9086431
+		},
+		'서대문구': { 
+			'lat' : 37.583312,
+			'lng' : 126.9356601
+		},
+		'서초구': { 
+			'lat' : 37.483574,
+			'lng' : 127.032661
+		},
+		'성동구': { 
+			'lat' : 37.5508768,
+			'lng' : 127.0408952
+		},
+		'성북구': { 
+			'lat' : 37.6023295,
+			'lng' : 127.025236
+		},
+		'송파구' : { 
+			'lat' : 37.504741,
+			'lng' : 127.1144649
+		},
+		'양천구': {  
+			'lat' : 37.527432,
+			'lng' : 126.8558783
+		},
+		'영등포구': { 
+			'lat' : 37.525423,
+			'lng' : 126.896395
+		},
+		'용산구': { 
+			'lat' : 37.5305208,
+			'lng' : 126.9809672
+		},
+		'은평구': { 
+			'lat' : 37.6175107,
+			'lng' : 126.9249166
+		},
+		'종로구': { 
+			'lat' : 37.6009106,
+			'lng' : 126.9835817
+		},
+		'중구': { 
+			'lat' : 37.5576747,
+			'lng' : 126.9941653
+		},
+		'중랑구': { 
+			'lat' : 37.5950497,
+			'lng' : 127.0957062
+		}
+};
+
+
+//selling map
+var sellingMap = null;
+
+
 function updateSellingPetApi(){
 	var url = "http://openapi.seoul.go.kr:8088/4b4b67704d6462663132306c47655155/json/ListLocaldata131501P/1/500/";
 
@@ -242,6 +373,7 @@ function updateSellingPetApi(){
 				}
 			}
 			setSellingView($( "#selling_district" ).val());
+			setSellingMap($( "#selling_district" ).val()); // 자치구, 주소, 이름
 			
 		},
 		error : function(xhr, status, error) {
@@ -250,6 +382,7 @@ function updateSellingPetApi(){
 		}
 	});
 }
+
 
 function setSellingView(district){
 
@@ -268,7 +401,83 @@ function setSellingView(district){
 	}
 	
 }
+
+function searchSellingStore(keyword){
+	for(var i = 0; i<g_selling_pet_list.length; i++){
+		
+		if(g_selling_pet_list[i].siteWhlAddr.includes(keyword) || g_selling_pet_list[i].rdnWhlAddr.includes(keyword)){
+			
+			alert("["+g_selling_pet_list[i].bplcNm+"]\n"+g_selling_pet_list[i].siteWhlAddr+"\n"+g_selling_pet_list[i].rdnWhlAddr);
+			
+		}	
+		
+	}
+}
+
+function setSellingMap(district){
+	var sellingMapContainer = document.getElementById('sc_selling_map'), // 지도를 표시할 div 
+    sellingMapOption = {
+		center: new daum.maps.LatLng(37.5169381,127.0470308), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+    };  
+
+	// 지도를 생성합니다    
+	sellingMap = new daum.maps.Map(sellingMapContainer, sellingMapOption); 
+
+	var position = [];
+	
+	for(var i = 0; i<g_selling_pet_list.length; i++){
+		setSellingMarker(g_selling_pet_list[i].rdnWhlAddr);
+	}
+}
+
+function setSellingMarker(address){
+	var geocoder = new daum.maps.services.Geocoder();
+	geocoder.addressSearch(address, function(result, status) {
+		
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+	
+	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+//	
+//	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: sellingMap,
+	            position: coords,
+	            clickable: true
+	        });
+	
+	        var iwRemoveable = true; 
+	        
+	        
+	        // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new daum.maps.InfoWindow({
+		        content: '<div style="width:150px;text-align:center;padding:6px 0;">'+address+'</div>', // 인포윈도우에 표시할 내용
+		        removable : iwRemoveable
+		    });
+		    
+		    daum.maps.event.addListener(marker, 'click', makerClickListener(marker, infowindow));
+		    
+	    } 
+	});    
+}
+
+function makerClickListener(marker, infowindow){
+	return function() {
+        infowindow.open(sellingMap, marker);
+    };
+}
+
+function changeSellingCenter(district){
+	
+	var moveLatLon = new daum.maps.LatLng(dictLatLng[district].lat, dictLatLng[district].lng);
+    
+    // 지도 중심을 이동 시킵니다
+	sellingMap.setCenter(moveLatLon);
+	sellingMap.setLevel(5);
+}
 // [end of selling Pet]
+
 
 // [about walking route]
 
@@ -329,13 +538,21 @@ function initHandler(){
 	
 	$( "#selling_district" ).change(function() {
 		//alert($( "#abandon_district" ).val());
-		  if(is_selling_load)
-			  setSellingView($( "#selling_district" ).val());
+		  if(is_selling_load){
+			  changeSellingCenter($( "#selling_district" ).val());
+		  }
 	});
 	$("#river_list").change(function() {
 		//alert($( "#abandon_district" ).val());
 		  if(is_river_load)
 			  setMapMarker($( "#river_list" ).val());
 	});
+	$("#search_button").click(function(){
+//		searchSellingStore();
+		var search = prompt("검색하고자 하는 위치를 적어보세요.");
+		searchSellingStore(search);
+//		search
+	});
+
 }
 
